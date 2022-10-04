@@ -61,7 +61,10 @@ def interpret_plate_kinetics(data_file, labels):
     sns.color_palette("colorblind")
     
     ax = sns.lineplot(data=df2, x='Converted_Time', y='Signal', hue='Group', ci="sd", palette="colorblind") #Plots a line graph of the average for each group at each time point
-    ax.set_title('%s Kinetics Scan (N = %s, Band = Standard Deviation)' % (exp_name, n_number), wrap=True) #Adds a title to the graph with the correct n number
+    if n_number == 1:
+        ax.set_title('%s Kinetics Scan' % (exp_name), wrap=True)
+    else:
+        ax.set_title('%s Kinetics Scan (N = %s, Band = Standard Deviation)' % (exp_name, n_number), wrap=True) #Adds a title to the graph with the correct n number
     ax.set(xlabel='Time (min)', ylabel='Signal (A.U.)') #Labels the axis
     plt.legend(labels=legend_labels)
     plt.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
