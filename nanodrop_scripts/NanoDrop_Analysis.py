@@ -9,9 +9,9 @@ import pandas as pd
 import matplotlib.pyplot as plt 
 import seaborn as sns
 import os
-import click 
-import random
-from quote import quote
+import click
+from shared_functions import generate_quote
+
 
 @click.command()
 @click.option('--data_file', required=True, help='Spectra file from NanoDrop in .TSV format.')
@@ -35,9 +35,5 @@ def Plot_NanoDrop(data_file):
     plt.savefig(os.path.join(base_folder, '%s_NanoDropAnalysis.png' % exp_name))
     #plt.show()
     
-    words = {"science", "music", "engineering"}
-    choice = random.choice(tuple(words))
-    res = quote(choice, limit = 100)
-    random_number = random.randint(1,100)
-    print(f"We want to remind you: {res[random_number]['quote']} ({res[random_number]['author']})")
+    generate_quote()
     

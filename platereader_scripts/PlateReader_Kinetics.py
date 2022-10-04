@@ -12,8 +12,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import click 
-import random
-from quote import quote
+from shared_functions import generate_quote
+
 
 @click.command()
 @click.option('--data_file', required=True, help='Data file for analysis. Different conditions must be different groups in the plate layout.')
@@ -73,9 +73,4 @@ def interpret_plate_kinetics(data_file, labels):
     plt.savefig(os.path.join(base_folder, '%s_Plate_Kinetics' % exp_name), bbox_inches='tight', dpi=300) #Saves the graph with an appropiate file name
     #plt.show()
     
-    words = {"science", "music", "engineering"}
-    choice = random.choice(tuple(words))
-    res = quote(choice, limit = 100)
-    random_number = random.randint(1,100)
-    print(f"We want to remind you: {res[random_number]['quote']} ({res[random_number]['author']})")
-    
+    generate_quote()

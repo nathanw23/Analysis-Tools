@@ -15,8 +15,7 @@ import matplotlib.pyplot as plt
 import os
 from tqdm import tqdm
 import click
-import ramdom
-from quote import quote
+from shared_functions import generate_quote
 
 def TotalFrames(videofile):
     global FramesTotal
@@ -110,9 +109,5 @@ def Analyse_Colour(video_file):
     plt.title('%s_Channel_Values_[%d:%d, %d:%d]' % (exp_name, Y1, Y2, X1, X2), wrap=True)
     plt.savefig(os.path.join(base_folder, '%s_ChannelValues_(%d,%d_%d,%d).png' % (exp_name, Y1, Y2, X1, X2)))
     #plt.show()
-    
-    words = {"science", "music", "engineering"}
-    choice = random.choice(tuple(words))
-    res = quote(choice, limit = 100)
-    random_number = random.randint(1,100)
-    print(f"We want to remind you: {res[random_number]['quote']} ({res[random_number]['author']})")
+
+    generate_quote()

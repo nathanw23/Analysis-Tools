@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 import click
-from quote import quote
-import random
+from shared_functions import generate_quote
+
 
 @click.command()
 @click.option('--data_file', required=True, help='Data file for analysis.')
@@ -80,8 +80,4 @@ def fluorimeter_kinetics_analysis(data_file):
     plt.savefig(os.path.join(base_folder, f'{exp_name}_Kinetics_Scan.png'), dpi=300) # Saves the graph
     #plt.show()   
     
-    words = {"science", "music", "engineering"}
-    choice = random.choice(tuple(words))
-    res = quote(choice, limit = 100)
-    random_number = random.randint(1,100)
-    print(f"We want to remind you: {res[random_number]['quote']} ({res[random_number]['author']})")
+    generate_quote()

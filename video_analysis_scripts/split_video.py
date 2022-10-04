@@ -9,8 +9,7 @@ import click
 import os
 import cv2
 from tqdm import tqdm
-import random
-from quote import quote
+from shared_functions import generate_quote
 
 
 @click.command()
@@ -47,9 +46,4 @@ def video_splitter(video_file):
  
     pbar.close()
     capture.release()
-    
-    words = {"science", "music", "engineering"}
-    choice = random.choice(tuple(words))
-    res = quote(choice, limit = 100)
-    random_number = random.randint(1,100)
-    print(f"We want to remind you: {res[random_number]['quote']} ({res[random_number]['author']})")
+    generate_quote()
