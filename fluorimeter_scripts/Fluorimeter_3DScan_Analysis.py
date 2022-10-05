@@ -15,7 +15,7 @@ import os
 import click
 from tqdm import tqdm
 import sys
-from shared_functions import generate_quote
+from shared_functions import generate_quote, csv_read_and_break_filter
 
 
 def plot_heatmap(heatmap_data, excitation_wavelengths, emission_positions, c_axis, base_folder, exp_name,
@@ -66,20 +66,7 @@ def interpret_3d_scan(data_file, c_axis, plot_separately):
     exp_name = exp_name.rsplit('.', 1)[0]
 
     print("Importing & Formatting Data")
-
-    f = open(data_file, "r")
-    lines = f.readlines()
-
-    unfiltered_lines = [sub.split(",") for sub in lines]
-
-    data_end = 0
-    for l_index, line in enumerate(unfiltered_lines):
-        # logs are separated from data by a single blank line - this will detect and remove all logs after this line
-        if line == ['\n']:
-            data_end = l_index
-            break
-
-    filtered_lines = unfiltered_lines[0:data_end]
+    filtered_lines = csv_read_and_break_filter(data_file)
     df = pd.DataFrame(filtered_lines)
     df.dropna(inplace=True)
 

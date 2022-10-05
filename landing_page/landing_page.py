@@ -23,7 +23,7 @@ def landing_page():
         ['Tool', 'Description'],
         ['plot_platekinetics', 'Plots kinetics data collected from the ClarioStar plate reader'],
         ['plot_scan', 'Plots scan data collected from a Cary Eclipse Fluorescence Spectrophotometer'],
-        ['plot_kientics', 'Plots kinetic scan data collected from a Cary Eclipse Fluorescence Spectrophotometer'],
+        ['plot_kinetics', 'Plots kinetic scan data collected from a Cary Eclipse Fluorescence Spectrophotometer'],
         ['plot_3dscan', 'Plots 3D scan data collected from a Cary Eclipse Fluorescence Spectrophotometer'],
         ['plot_videocolour', 'Plots the RGB values for a specified region of a video'],
         ['nanodrop_analysis', 'Plots specrea from a NanoDrop 2000c'],
