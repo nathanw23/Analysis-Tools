@@ -10,7 +10,11 @@ To install, *ideally* create a new environment using your preferred Python envir
 
 Then install the required packages as follows:
 
-```pip install -r requirements.txt```
+1. ```pip install -r requirements.txt```
+
+2. ```pip install -e .```
+
+Once installed, the tools can be used from any location on your computer. 
 
 Tested using Python 3.8 on Windows 10 and Mac OS 12.6
 
@@ -18,3 +22,7 @@ Tested using Python 3.8 on Windows 10 and Mac OS 12.6
 
  - All available tools and a brief description can be found by entering ```analysis_tools``` 
  - Program specific information can be found by typing ```--help``` after the program name
+
+### Updating
+
+After updating the repo (```git pull```), update the command line interface using ```pip install -e .``` at the repo root directory
