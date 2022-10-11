@@ -25,38 +25,6 @@ def TotalFrames(videofile):
     cap.release()
     print(f"The video has {FramesTotal} frames")
     
-    
-def ClipFirstFrame(videofile):
-    while True:
-        global Y1,Y2,X1,X2
-        vidcap = cv2.VideoCapture(videofile)
-        success, image = vidcap.read()
-        if success:
-            plt.figure()
-            plt.imshow(image)
-            plt.draw()
-            plt.pause(0.001)     
-        Y1 = int(input("Enter Y1 Coordinate: "))
-        Y2 = int(input("Enter Y2 Coordinate: "))
-        X1 = int(input("Enter X1 Coordinate: "))
-        X2 = int(input("Enter X2 Coordinate: "))    
-        plt.close()   
-        clip = image[Y1:Y2, X1:X2, :]
-        plt.figure()
-        plt.imshow(clip)
-        plt.draw()
-        plt.pause(0.001)      
-        Selection_Check = input("Are you happy with the selected area? (Y/N): ").capitalize()
-        if Selection_Check == "Y":
-            plt.close()
-            break
-        elif Selection_Check == "N":
-            plt.close()
-            print("Please select again!")
-        else:
-            plt.close()
-            print("Sorry, that is an invalid command!")
-
         
 def process_video(video_filepath, Y1, Y2, X1, X2):
     global FramesTotal,colours,total_length
@@ -90,8 +58,15 @@ def Analyse_Colour(video_file):
     
     TotalFrames(Video_FILE)
     
-    ClipFirstFrame(Video_FILE)
-    
+    vidcap = cv2.VideoCapture(Video_FILE)
+    success, image = vidcap.read()
+    r = cv2.selectROI("Select the area", image)
+    Y1 = int(r[1])
+    Y2 = int(r[1]+r[3])
+    X1 = int(r[0])
+    X2 = int(r[0]+r[2])
+    cv2.destroyAllWindows()
+
     process_video(Video_FILE, Y1, Y2, X1, X2)
     
     df=pd.DataFrame(colours, columns = ['R', 'G', 'B'])
