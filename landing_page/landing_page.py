@@ -27,7 +27,8 @@ def landing_page():
         ['plot_3dscan', 'Plots 3D scan data collected from a Cary Eclipse Fluorescence Spectrophotometer'],
         ['plot_videocolour', 'Plots the RGB values for a specified region of a video'],
         ['plot_nanodrop', 'Plots specrea from a NanoDrop 2000c'],
-        ['split_video', 'Split a video into individual frames']
+        ['split_video', 'Split a video into individual frames'],
+        ['plot_multiplex', 'Cleans up and plots multiplex data obtained from a ClarioStar plate reader']
     ]
     
     table = AsciiTable(table_data)

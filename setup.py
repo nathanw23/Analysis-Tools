@@ -18,6 +18,7 @@ setup(
         analysis_tools = landing_page.landing_page:landing_page
         plot_nanodrop = nanodrop_scripts.NanoDrop_Analysis:Plot_NanoDrop
         split_video = video_analysis_scripts.split_video:video_splitter
+        plot_multiplex = platereader_scripts.PlateReader_Multiplex:cleanup_multiplex_data
     '''
 )
 
