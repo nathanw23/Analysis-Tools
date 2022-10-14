@@ -13,12 +13,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 import click
+from shared_functions import generate_quote
 
 @click.command()
 @click.option("--data_file", required=True, help="Data file for analysis. Different conditions must be different groups in the plate layout")
 @click.option('--labels', required=True, help='Labels for the figure legend separated by commas (no spaces)')
+@click.option('--fluorophores', required=True, help='The fluorophores used in the experiment in the order set separated by commas (no spaces)')
 
-def cleanup_multiplex_data(data_file, labels):
+def cleanup_multiplex_data(data_file, labels, fluorophores):
 
     base_folder = os.path.dirname(data_file) # Sets the base file
     exp_name = data_file.split(os.sep)[-1]
@@ -47,10 +49,14 @@ def cleanup_multiplex_data(data_file, labels):
     conditions = labels.split(",")
     df2["Group"] = df2["Group"].replace(groups, conditions)
 
+    wavelengths = df2["Wavelength"].unique().tolist()
+    fluoros = fluorophores.split(",")
+    df2["Fluorophore"] = df2["Wavelength"].replace(wavelengths, fluoros)
+
     df2.to_csv(os.path.join(base_folder, f"{exp_name}_Formatted_Data.csv"), encoding="utf-8", index=False)
 
-    grid = sns.FacetGrid(df2, col='Group', row='Wavelength', margin_titles=True)
+    grid = sns.FacetGrid(df2, col='Group', row='Fluorophore', margin_titles=True)
     grid.map(sns.lineplot, "Converted_Time", "Signal", ci="sd", palette="colorblind")
     grid.savefig(os.path.join(base_folder, f"{exp_name}_MultiplexFacet.pdf"), dpi=300)
 
-
+    generate_quote()
