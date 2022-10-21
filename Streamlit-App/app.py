@@ -9,13 +9,18 @@ data = np.random.randn(10,1) # Used to generate data for graph placeholder
 
 # Settings
 analysis_tools = ["Plate Multiplex", "Plate Kinetics", 'Fluorimeter Scan', 'Fluorimeter Kinetics', '3D Scan' ]
-page_title = "Analysis Tools Web App"
+page_title = "Analysis Tools"
+page_header = 'Laboratory Analysis Tools - Web App'
 page_icon = ":bar_chart:"  # https://www.webfx.com/tools/emoji-cheat-sheet/
 layout = "centered"
 
-# Navigation Menu
+# Layout
 st.set_page_config(page_title=page_title, page_icon=page_icon, layout=layout)
 st.title(page_title)
+st.header(page_header)
+
+with st.expander('About this app'):
+  st.write('This app plots data from a Clariostar plate reader and Cary Eclipse Fluorimeter.')
 
 data_file = st.file_uploader("Select data file", key="data_file")
 
