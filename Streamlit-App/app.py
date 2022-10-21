@@ -7,9 +7,9 @@ import seaborn as sns
 # Settings
 analysis_tools = ["Plate Multiplex"]
 page_title = "Analysis Tools Web App"
-page_icon = ":microscope:" # https://www.webfx.com/tools/emoji-cheat-sheet/
+page_icon = ":microscope:"  # https://www.webfx.com/tools/emoji-cheat-sheet/
 layout = "centered"
- 
+
 # Navigation Menu
 st.set_page_config(page_title=page_title, page_icon=page_icon, layout=layout)
 st.title(page_title)
@@ -24,8 +24,8 @@ with st.form("data_form", clear_on_submit=True):
 # Data Clean Up and Visualisation
 if submitted:
     df = pd.read_csv(data_file)
-    #st.dataframe(df)
+    # st.dataframe(df)
     if st.session_state['tool'] == 'Plate Multiplex':
-        fig = plt.figure(figsize=(10,4))
-        sns.lineplot(data = df, x = "Converted_Time", y = "Signal", hue = "Group", style = "Fluorophore", ci = 'sd')
+        fig = plt.figure(figsize=(10, 4))
+        sns.lineplot(data=df, x="Converted_Time", y="Signal", hue="Group", style="Fluorophore", ci='sd')
         st.pyplot(fig)

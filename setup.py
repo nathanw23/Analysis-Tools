@@ -10,15 +10,15 @@ setup(
     packages=find_packages(),
     entry_points='''
         [console_scripts]
-        plot_scan = fluorimeter_scripts.Fluorimeter_Scan_Analysis:fluorimeter_scan_analysis
-        plot_3dscan = fluorimeter_scripts.Fluorimeter_3DScan_Analysis:interpret_3d_scan
-        plot_kinetics = fluorimeter_scripts.Fluorimeter_Kinetics_Analysis:fluorimeter_kinetics_analysis
-        plot_platekinetics = platereader_scripts.PlateReader_Kinetics:interpret_plate_kinetics
-        plot_videocolour = video_analysis_scripts.Video_Colour_Analyser:Analyse_Colour
         analysis_tools = landing_page.landing_page:landing_page
-        plot_nanodrop = nanodrop_scripts.NanoDrop_Analysis:Plot_NanoDrop
-        split_video = video_analysis_scripts.split_video:video_splitter
-        plot_multiplex = platereader_scripts.PlateReader_Multiplex:cleanup_multiplex_data
+        fluor_scan = click_command_line.fluorimeter_scripts:click_fluorimeter_scan
+        fluor_3dscan = click_command_line.fluorimeter_scripts:click_3d_scan
+        fluor_kinetics = click_command_line.fluorimeter_scripts:click_kinetics_analysis
+        plot_platekinetics = click_command_line.platereader_scripts:click_interpret_kinetics
+        plot_platemultiplex = click_command_line.platereader_scripts:click_multiplex_cleanup
+        plot_nanodrop = click_command_line.nanodrop_scripts:click_absorbance_plot
+        plot_videocolour = click_command_line.video_analysis_scripts:click_video_colour_analysis
+        split_video = click_command_line.video_analysis_scripts:click_video_splitter
     '''
 )
 

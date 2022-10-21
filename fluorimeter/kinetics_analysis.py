@@ -1,22 +1,11 @@
-'''
-Fluorimeter_Kinetics_Analysis.py
-
-Python script to format and plot fluorimeter scan data 
-
-v1, Nathan Wu, 23-Sep-2021
-'''
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-import click
 from shared_functions import generate_quote, csv_read_and_break_filter
 import sys
 
 
-@click.command()
-@click.option('--data_file', required=True, help='Data file for analysis.')
 def fluorimeter_kinetics_analysis(data_file):
     base_folder = os.path.dirname(data_file)  # Sets the base folder to the directory of the inputed data file
     exp_name = data_file.split(os.sep)[-1]  # Extracts the experiment name from the name of the data file

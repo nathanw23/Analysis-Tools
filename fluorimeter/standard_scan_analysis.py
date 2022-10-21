@@ -1,23 +1,10 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-'''
-Fluorimeter_Scan_Analysis.py
-
-Python script to format and plot fluorimeter scan data 
-
-v1, Nathan Wu, 22-Sep-2021
-'''
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-import click
 from shared_functions import generate_quote
 
 
-@click.command()
-@click.option("--data_file", required=True, help='Specify location of input data file.')
 def fluorimeter_scan_analysis(data_file):
     base_folder = os.path.dirname(data_file)
     exp_name = data_file.split(os.sep)[-1]

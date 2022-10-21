@@ -1,18 +1,9 @@
-"""
-Fluorimeter_3DScan_Analysis.py
-
-Python script to format and plot fluorimeter scan data 
-
-v2, Nathan Wu, Matthew Aquilina, 04-Oct-2022
-"""
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from collections import defaultdict
 import seaborn as sns
 import os
-import click
 from tqdm import tqdm
 import sys
 from shared_functions import generate_quote, csv_read_and_break_filter
@@ -51,12 +42,6 @@ def plot_heatmap(heatmap_data, excitation_wavelengths, emission_wavelengths, c_a
     plt.savefig(os.path.join(base_folder, '%s_3DScan%s.png' % (exp_name, sample_info)), dpi=300)
 
 
-@click.command()
-@click.option('--data_file', required=True,
-              help='Data file for analysis. Fluorimeter must be set to EXCITATION or EMISSION scan mode')
-@click.option('--c_axis', type=click.IntRange(0, 1000), default=400, show_default=True,
-              help='Set the maximum value of the colourbar')
-@click.option('--plot_separately', is_flag=True, help='Set this flag to plot all samples separately')
 def interpret_3d_scan(data_file, c_axis, plot_separately):
     print("Starting Programme")
 
