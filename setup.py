@@ -14,8 +14,8 @@ setup(
         fluor_scan = click_command_line.fluorimeter_scripts:click_fluorimeter_scan
         fluor_3dscan = click_command_line.fluorimeter_scripts:click_3d_scan
         fluor_kinetics = click_command_line.fluorimeter_scripts:click_kinetics_analysis
-        plot_platekinetics = click_command_line.platereader_scripts:click_interpret_kinetics
-        plot_platemultiplex = click_command_line.platereader_scripts:click_multiplex_cleanup
+        plate_kinetics = click_command_line.platereader_scripts:click_interpret_kinetics
+        plate_multiplex = click_command_line.platereader_scripts:click_multiplex_cleanup
         plot_nanodrop = click_command_line.nanodrop_scripts:click_absorbance_plot
         plot_videocolour = click_command_line.video_analysis_scripts:click_video_colour_analysis
         split_video = click_command_line.video_analysis_scripts:click_video_splitter

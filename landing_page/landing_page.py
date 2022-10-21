@@ -12,8 +12,8 @@ def landing_page():
 
     table_data = [
         ['Tool', 'Description'],
-        ['plot_platekinetics', 'Plots kinetics data collected from the ClarioStar plate reader'],
-        ['plot_platemultiplex', 'Cleans up and plots multiplex data obtained from a ClarioStar plate reader'],
+        ['plate_kinetics', 'Plots kinetics data collected from the ClarioStar plate reader'],
+        ['plate_multiplex', 'Cleans up and plots multiplex data obtained from a ClarioStar plate reader'],
         ['fluor_scan', 'Plots scan data collected from a Cary Eclipse Fluorescence Spectrophotometer'],
         ['fluor_kinetics', 'Plots kinetic scan data collected from a Cary Eclipse Fluorescence Spectrophotometer'],
         ['fluor_3dscan', 'Plots 3D scan data collected from a Cary Eclipse Fluorescence Spectrophotometer'],
