@@ -2,14 +2,15 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import os
-from shared_functions import generate_quote
 
 
-def cleanup_multiplex_data(data_file, labels, fluorophores):
-    base_folder = os.path.dirname(data_file)  # Sets the base file
-    exp_name = data_file.split(os.sep)[-1]
-    exp_name = exp_name.rsplit(".", 1)[0]
+def cli_multiplex_plot(df, output_folder, exp_name):
+    grid = sns.FacetGrid(df, col='Group', row='Fluorophore', margin_titles=True)
+    grid.map(sns.lineplot, "Converted_Time", "Signal", ci="sd", palette="colorblind")
+    grid.savefig(os.path.join(output_folder, f"{exp_name}_MultiplexFacet.pdf"), dpi=300)
 
+
+def cleanup_multiplex_data(data_file, labels, fluorophores, **kwargs):
     df = pd.read_csv(data_file, skiprows=5, header=[0, 1])
     df.drop(columns=df.columns[:2], axis=1, inplace=True)
 
@@ -37,10 +38,4 @@ def cleanup_multiplex_data(data_file, labels, fluorophores):
     fluoros = fluorophores.split(",")
     df2["Fluorophore"] = df2["Wavelength"].replace(wavelengths, fluoros)
 
-    df2.to_csv(os.path.join(base_folder, f"{exp_name}_Formatted_Data.csv"), encoding="utf-8", index=False)
-
-    grid = sns.FacetGrid(df2, col='Group', row='Fluorophore', margin_titles=True)
-    grid.map(sns.lineplot, "Converted_Time", "Signal", ci="sd", palette="colorblind")
-    grid.savefig(os.path.join(base_folder, f"{exp_name}_MultiplexFacet.pdf"), dpi=300)
-
-    generate_quote()
+    return df2

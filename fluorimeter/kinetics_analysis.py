@@ -2,14 +2,23 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-from shared_functions import generate_quote, csv_read_and_break_filter
-import sys
+from shared_functions import csv_read_and_break_filter
+
+
+def cli_kinetics_lineplot(df, exp_name, output_folder):
+    sns.lineplot(data=df, x="Time (min)", y="Intensity (A.U.)", hue="Group",
+                 palette='colorblind')  # Plots the data
+
+    plt.ylim(ymin=0)
+    plt.xlim(xmin=0, xmax=df['Time (min)'].max())
+    plt.title(f'{exp_name} Kinetics Scan')
+    plt.xlabel('Time (min)')
+    plt.ylabel('Intensity (A.U.)')
+
+    plt.savefig(os.path.join(output_folder, f'{exp_name}_Kinetics_Scan.png'), dpi=300)  # Saves the graph
 
 
 def fluorimeter_kinetics_analysis(data_file):
-    base_folder = os.path.dirname(data_file)  # Sets the base folder to the directory of the inputed data file
-    exp_name = data_file.split(os.sep)[-1]  # Extracts the experiment name from the name of the data file
-    exp_name = exp_name.rsplit('.', 1)[0]  # Removes the file extension from the experiment name
 
     filtered_lines = csv_read_and_break_filter(data_file)  # reads in data and filters any logs
 
@@ -53,28 +62,6 @@ def fluorimeter_kinetics_analysis(data_file):
     df_combined['Time (min)'] = pd.to_numeric(df_combined['Time (min)'])  # Converts the time column from object type to float
     df_combined['Intensity (A.U.)'] = pd.to_numeric(df_combined['Intensity (A.U.)'])  # # Converts the signal column from object type to float
 
-    max_time = df_combined['Time (min)'].max()  # Gets the max time for the x-axis limits
-
-    df_combined.to_csv(os.path.join(base_folder, '%s_Formatted_Data.csv' % exp_name), encoding='utf-8',
-                       index=False)  # Saves the updates dataframe to a csv file
-
-    summary = df_combined.groupby(["Group", "Time (min)"])["Intensity (A.U.)"].describe()
-    summary.to_csv(os.path.join(base_folder, '%s_Data_Summary.csv' % exp_name), encoding='utf-8')
-
-    sns.lineplot(data=df_combined, x="Time (min)", y="Intensity (A.U.)", hue="Group",
-                 palette='colorblind')  # Plots the data
-
-    plt.ylim(ymin=0)
-    plt.xlim(xmin=0, xmax=max_time)
-    plt.title(f'{exp_name} Kinetics Scan')
-    plt.xlabel('Time (min)')
-    plt.ylabel('Intensity (A.U.)')
-
-    plt.savefig(os.path.join(base_folder, f'{exp_name}_Kinetics_Scan.png'), dpi=300)  # Saves the graph
-    # plt.show()
-
-    generate_quote()
+    return df_combined
 
 
-if __name__ == '__main__':
-    fluorimeter_kinetics_analysis(sys.argv[1:])  # for use when debugging with pycharm

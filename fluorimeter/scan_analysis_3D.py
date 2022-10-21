@@ -9,8 +9,8 @@ import sys
 from shared_functions import generate_quote, csv_read_and_break_filter
 
 
-def plot_heatmap(heatmap_data, excitation_wavelengths, emission_wavelengths, c_axis, base_folder, exp_name,
-                 sample_info=''):
+def cli_plot_heatmap(heatmap_data, excitation_wavelengths, emission_wavelengths, c_axis, base_folder, exp_name,
+                     sample_info=''):
     # Graph plotting and formatting
 
     fig, ax = plt.subplots(figsize=(35, 25))
@@ -42,41 +42,48 @@ def plot_heatmap(heatmap_data, excitation_wavelengths, emission_wavelengths, c_a
     plt.savefig(os.path.join(base_folder, '%s_3DScan%s.png' % (exp_name, sample_info)), dpi=300)
 
 
-def interpret_3d_scan(data_file, c_axis, plot_separately):
+def interpret_3d_scan(data_file, plot_separately, preformatted_data=False, save_formatted_data=False, **kwargs):
     print("Starting Programme")
 
     base_folder = os.path.dirname(data_file)
-    exp_name = data_file.split(os.sep)[-1]
-    exp_name = exp_name.rsplit('.', 1)[0]
+    exp_name = data_file.split(os.sep)[-1].rsplit('.', 1)[0]
 
-    print("Importing & Formatting Data")
-    filtered_lines = csv_read_and_break_filter(data_file)
-    df = pd.DataFrame(filtered_lines)
-    df.dropna(inplace=True)
+    if not preformatted_data:
+        print("Importing & Formatting Data")
+        filtered_lines = csv_read_and_break_filter(data_file)
+        df = pd.DataFrame(filtered_lines)
+        df.dropna(inplace=True)
 
-    print('Formatted data saved as %s_Formatted_Data.csv' % exp_name)
-    df.to_csv(os.path.join(base_folder, '%s_Formatted_Data.csv' % exp_name), encoding='utf-8', index=False,
-              header=False)
+        if save_formatted_data:
+            print('Formatted data saved as %s_Formatted_Data.csv' % exp_name)
+            df.to_csv(os.path.join(base_folder, '%s_Formatted_Data.csv' % exp_name), encoding='utf-8', index=False, header=False)
 
-    raw_data = pd.read_csv(os.path.join(base_folder, "%s_Formatted_Data.csv" % exp_name), header=[0, 1])
+        header = df.iloc[0]
+        raw_data = df[2:]
+        raw_data.columns = header
+        raw_data = raw_data.drop(columns=['\n']).astype(float)
+    else:
+        raw_data = pd.read_csv(os.path.join(base_folder, "%s_Formatted_Data.csv" % exp_name), header=[0, 1])
+        raw_data = raw_data.droplevel(1, axis=1).drop(columns=['\n'])
 
     print('Preparing Heatmap data')
 
     wavelengths = defaultdict(list)
 
-    if '_EX_' in raw_data.columns.to_list()[0][0]:  # defines which type of wavelength is in the header/columns
+    if '_EX_' in raw_data.columns.to_list()[0]:  # defines which type of wavelength is in the header/columns
         wavelengths['emission'] = raw_data.iloc[:, 0].to_list()  # column wavelengths repeated throughout file
         header_type = 'excitation'
         header_sep = '_EX_'
         column_type = 'emission'
-    else:
+    elif '_EM_' in raw_data.columns.to_list()[0]:
         wavelengths['excitation'] = raw_data.iloc[:, 0].to_list()
         header_type = 'emission'
         header_sep = '_EM_'
         column_type = 'excitation'
+    else:
+        raise RuntimeError('Something is wrong in the data header - add either emission or excitation data only.')
 
     header_wavelengths = raw_data.columns.to_list()
-    header_wavelengths = [e[0] for e in header_wavelengths]  # wavelengths are in the first header
     header_wavelengths_reps = []
     sample_names = []
     for i in range(0, len(header_wavelengths), 2):  # run through the header data, the wavelength is in every second cell
@@ -113,9 +120,9 @@ def interpret_3d_scan(data_file, c_axis, plot_separately):
                 replicate_data = raw_data.iloc[i, fixed_indices]
                 heatmap_data[heatmap_ordering] = np.mean(replicate_data)  # averaging data according to number of replicates
 
-        print("Plotting Data...")
-        plot_heatmap(heatmap_data, wavelengths['excitation'], wavelengths['emission'], c_axis, base_folder, exp_name)
+        return heatmap_data, wavelengths, exp_name, sample_names
     else:
+        multi_heatmaps = []
         for s_index, sample in enumerate(sample_names):
             print('Preparing sample %s' % sample)
             heatmap_data = np.zeros((len(wavelengths['emission']), (len(wavelengths['excitation']))))  # emission on y-axis, excitation on x-axis
@@ -134,14 +141,7 @@ def interpret_3d_scan(data_file, c_axis, plot_separately):
                         # offsetting index positions to match file (data repeated once every 2 columns)
                         replicate_data = raw_data.iloc[i, fixed_indices]
                         heatmap_data[heatmap_ordering] = replicate_data
-            print("Plotting Data...")
-            plot_heatmap(heatmap_data, wavelengths['excitation'], wavelengths['emission'], c_axis, base_folder, exp_name,
-                         sample_info=sample)
+            multi_heatmaps.append(heatmap_data)
 
-    print("Done!")
+        return multi_heatmaps, wavelengths, sample_names
 
-    generate_quote()
-
-
-if __name__ == '__main__':
-    interpret_3d_scan(sys.argv[1:])  # for use when debugging with pycharm

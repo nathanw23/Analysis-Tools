@@ -2,16 +2,23 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-from shared_functions import generate_quote
 
 
-def fluorimeter_scan_analysis(data_file):
-    base_folder = os.path.dirname(data_file)
-    exp_name = data_file.split(os.sep)[-1]
-    exp_name = exp_name.rsplit('.', 1)[0]
+def cli_plot(df, exp_name, output_folder):
+    sns.lineplot(data=df, x="Wavelength (nm)", y="Intensity (A.U.)", hue="Sample")
+    plt.ylim(ymin=0)
+    plt.title('%s Fluorescence Scan' % exp_name)
+    plt.xlabel('Wavelength (nm)')
+    plt.ylabel('Intensity (AU)')
+
+    plt.savefig(os.path.join(output_folder, f'{exp_name} Fluorescence_Scan.png'), dpi=300)
+
+
+def fluorimeter_scan_analysis(data_file, **kwargs):
 
     df = pd.read_csv(data_file)
-    if df.shape[1] % 2 != 0: df = df.iloc[:, :-1]
+    if df.shape[1] % 2 != 0:
+        df = df.iloc[:, :-1]
     df = df.dropna()
 
     raw_sample_names = df.columns.to_list()
@@ -26,16 +33,4 @@ def fluorimeter_scan_analysis(data_file):
     df2['Sample'] = df2['Sample'].replace(old_names, sample_names)
     df2[["Wavelength (nm)", "Intensity (A.U.)"]] = df2[["Wavelength (nm)", "Intensity (A.U.)"]].apply(pd.to_numeric)
 
-    df2.to_csv(os.path.join(base_folder, '%s_Formatted_Data.csv' % exp_name), encoding='utf-8', index=False)
-
-    sns.lineplot(data=df2, x="Wavelength (nm)", y="Intensity (A.U.)", hue="Sample")
-
-    plt.ylim(ymin=0)
-    plt.title('%s Fluorescence Scan' % exp_name)
-    plt.xlabel('Wavelength (nm)')
-    plt.ylabel('Intensity (AU)')
-
-    plt.savefig(os.path.join(base_folder, f'{exp_name} Fluorescence_Scan.png'), dpi=300)
-    # plt.show()
-
-    generate_quote()
+    return df2
