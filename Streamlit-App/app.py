@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from shared_functions import csv_read_and_break_filter
+from fluorimeter.standard_scan_analysis import fluorimeter_scan_analysis
+from fluorimeter.kinetics_analysis import fluorimeter_kinetics_analysis
 
 # Settings
 analysis_tools = ["Plate Multiplex", "Plate Kinetics", 'Fluorimeter Scan', 'Fluorimeter Kinetics', '3D Scan' ]
@@ -36,4 +39,11 @@ if '3D Scan' in selected_tool:
 run = st.button("Run Analysis")
 
 if run:
-    st.info("You've clicked the Run button", icon="👍")
+    if selected_tool == "Fluorimeter Scan":
+        df = fluorimeter_scan_analysis(data_file)
+        fig = plt.figure()
+        sns.lineplot(data=df, x="Wavelength (nm)", y="Intensity (A.U.)", hue="Sample")
+        st.pyplot(fig)
+    if selected_tool == "Fluorimeter Kinetics":
+        df = fluorimeter_kinetics_analysis(data_file)
+        st.write(df)
