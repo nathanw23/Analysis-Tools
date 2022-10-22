@@ -45,7 +45,8 @@ if run:
         sns.lineplot(data=df, x="Wavelength (nm)", y="Intensity (A.U.)", hue="Sample")
         st.pyplot(fig)
     if selected_tool == "Fluorimeter Kinetics":
-        st.warning("Not Currently Set-Up", icon='⚠️')
+        df = fluorimeter_kinetics_analysis(data_file)
+        st.write(df)
     if selected_tool == "3D Scan":
         st.warning("Not Currently Set-Up", icon='⚠️')
     if selected_tool == "Plate Kinetics":
