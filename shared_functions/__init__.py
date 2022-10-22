@@ -25,6 +25,7 @@ def csv_read_and_break_filter(datafile):
             lines = f.readlines()
     else:
         lines = datafile.readlines()
+        lines = [line.decode('utf-8').replace('\r','') for line in lines]
 
     unfiltered_lines = [sub.split(",") for sub in lines]
 
