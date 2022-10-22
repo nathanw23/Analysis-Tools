@@ -4,9 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-#Test Data
-data = np.random.randn(10,1) # Used to generate data for graph placeholder
-
 # Settings
 analysis_tools = ["Plate Multiplex", "Plate Kinetics", 'Fluorimeter Scan', 'Fluorimeter Kinetics', '3D Scan' ]
 page_title = "Analysis Tools"
@@ -39,5 +36,4 @@ if '3D Scan' in selected_tool:
 run = st.button("Run Analysis")
 
 if run:
-    if selected_tool == "Fluorimeter Scan":
-        st.line_chart(data) # Graph place holder
+    st.info("You've clicked the Run button", icon="👍")
