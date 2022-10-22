@@ -17,12 +17,14 @@ def generate_quote(words=("science", "music", "engineering")):
 def csv_read_and_break_filter(datafile):
     """
     Reads in a csv file and filters any metadata separated from main data by a line break.
-    :param datafile: Location of csv file.
+    :param datafile: Location of csv file, or pre-opened file.
     :return: List of filtered datapoints.
     """
-
-    f = open(datafile, "r")
-    lines = f.readlines()
+    if isinstance(f, str):
+        with open(datafile, "r") as f:
+            lines = f.readlines()
+    else:
+        lines = datafile.readlines()
 
     unfiltered_lines = [sub.split(",") for sub in lines]
 
