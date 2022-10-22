@@ -47,7 +47,7 @@ if run:
     if selected_tool == "Fluorimeter Kinetics":
         df = fluorimeter_kinetics_analysis(data_file)
         fig = plt.figure()
-        sns.lineplot(data=df, x="Wavelength (nm)", y="Intensity (A.U.)", hue="Sample")
+        sns.lineplot(data=df, x="Wavelength (nm)", y="Intensity (A.U.)", hue="Group")
         st.pyplot(fig)
     if selected_tool == "3D Scan":
         st.warning("Not Currently Set-Up", icon='⚠️')
