@@ -6,9 +6,11 @@ import seaborn as sns
 from shared_functions import csv_read_and_break_filter
 from fluorimeter.standard_scan_analysis import fluorimeter_scan_analysis
 from fluorimeter.kinetics_analysis import fluorimeter_kinetics_analysis
+from platereader.kinetics import interpret_plate_kinetics
+from nanodrop.nanodrop_analysis import absorbance_setup
 
 # Settings
-analysis_tools = ["Plate Multiplex", "Plate Kinetics", 'Fluorimeter Scan', 'Fluorimeter Kinetics', '3D Scan' ]
+analysis_tools = ["Nanodrop", "Plate Kinetics", 'Fluorimeter Scan', 'Fluorimeter Kinetics']
 page_title = "Analysis Tools"
 page_header = 'Laboratory Analysis Tools - Web App'
 page_icon = ":bar_chart:"  # https://www.webfx.com/tools/emoji-cheat-sheet/
@@ -49,9 +51,11 @@ if run:
         fig = plt.figure()
         sns.lineplot(data=df, x="Wavelength (nm)", y="Intensity (A.U.)", hue="Group")
         st.pyplot(fig)
-    if selected_tool == "3D Scan":
-        st.warning("Not Currently Set-Up", icon='⚠️')
     if selected_tool == "Plate Kinetics":
-        st.warning("Not Currently Set-Up", icon='⚠️')
-    if selected_tool == "Plate Multiplex":
-        st.warning("Not Currently Set-Up", icon='⚠️')
+        df = interpret_plate_kinetics(data_file, labels)
+        fig = plt.figure()
+        sns.lineplot(data=df, x='Converted_Time', y='Signal', hue='Group', ci='sd')
+        st.pyplot(fig)
+    if selected_tool == "Nanodrop":
+        df = absorbance_setup(data_file)
+        st.line_chart(data=df, x='Wavelength (nm)', y='Absorbance')
