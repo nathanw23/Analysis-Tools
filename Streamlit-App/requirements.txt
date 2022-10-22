@@ -1,5 +1,4 @@
 streamlit
-click == 7.1.2
 pandas == 1.4.3
 seaborn == 0.11.2
 matplotlib == 3.4.3
