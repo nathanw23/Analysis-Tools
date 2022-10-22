@@ -20,7 +20,7 @@ def csv_read_and_break_filter(datafile):
     :param datafile: Location of csv file, or pre-opened file.
     :return: List of filtered datapoints.
     """
-    if isinstance(f, str):
+    if isinstance(datafile, str):
         with open(datafile, "r") as f:
             lines = f.readlines()
     else:
