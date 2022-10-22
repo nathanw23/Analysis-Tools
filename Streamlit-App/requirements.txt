@@ -8,3 +8,4 @@ tqdm == 4.62.3
 quote == 2.0.4
 pyfiglet == 0.8.post1
 terminaltables == 3.1.10
+-e .
