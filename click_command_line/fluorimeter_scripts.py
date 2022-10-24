@@ -59,7 +59,7 @@ def click_kinetics_analysis(**kwargs):
     base_folder = os.path.dirname(kwargs['data_file'])  # Sets the base folder to the directory of the inputed data file
     exp_name = kwargs['data_file'].split(os.sep)[-1].rsplit('.', 1)[0]
 
-    df = fluorimeter_kinetics_analysis(**kwargs)
+    df = fluorimeter_kinetics_analysis(kwargs['data_file'])
 
     if kwargs['format_data']:
         df.to_csv(os.path.join(base_folder, '%s_Formatted_Data.csv' % exp_name), encoding='utf-8', index=False)  # Saves the updates dataframe to a csv file
