@@ -1,5 +1,6 @@
 from quote import quote
 import random
+import chardet
 
 
 def generate_quote(words=("science", "music", "engineering")):
@@ -20,12 +21,14 @@ def csv_read_and_break_filter(datafile):
     :param datafile: Location of csv file, or pre-opened file.
     :return: List of filtered datapoints.
     """
+
+    encoding = chardet.detect(open(datafile, 'rb').read())['encoding']  # just in case file is not standard utf-8
     if isinstance(datafile, str):
-        with open(datafile, "r") as f:
+        with open(datafile, "r", encoding=encoding) as f:
             lines = f.readlines()
     else:
         lines = datafile.readlines()
-        lines = [line.decode('utf-8').replace('\r','') for line in lines]
+        lines = [line.decode(encoding).replace('\r', '') for line in lines]
 
     unfiltered_lines = [sub.split(",") for sub in lines]
 
