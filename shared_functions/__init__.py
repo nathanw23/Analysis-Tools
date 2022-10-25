@@ -22,13 +22,16 @@ def csv_read_and_break_filter(datafile):
     :return: List of filtered datapoints.
     """
 
-    encoding = chardet.detect(open(datafile, 'rb').read())['encoding']  # just in case file is not standard utf-8
     if isinstance(datafile, str):
+        encoding = chardet.detect(open(datafile, 'rb').read())['encoding']  # just in case file is not standard utf-8
         with open(datafile, "r", encoding=encoding) as f:
             lines = f.readlines()
     else:
         lines = datafile.readlines()
-        lines = [line.decode(encoding).replace('\r', '') for line in lines]
+        try:
+            lines = [line.decode('utf-8').replace('\r', '') for line in lines]
+        except:
+            lines = [line.decode('ISO-8859-1').replace('\r', '') for line in lines]
 
     unfiltered_lines = [sub.split(",") for sub in lines]
 
