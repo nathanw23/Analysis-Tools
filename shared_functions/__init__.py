@@ -30,7 +30,7 @@ def csv_read_and_break_filter(datafile):
         lines = datafile.readlines()
         try:
             lines = [line.decode('utf-8').replace('\r', '') for line in lines]
-        except:
+        except:  # this is a quick patch for one case, TODO: find a way to decipher encoding directly from file
             lines = [line.decode('ISO-8859-1').replace('\r', '') for line in lines]
 
     unfiltered_lines = [sub.split(",") for sub in lines]
