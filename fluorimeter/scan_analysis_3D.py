@@ -61,7 +61,12 @@ def interpret_3d_scan(data_file, plot_separately, preformatted_data=False, save_
         header = df.iloc[0]
         raw_data = df[2:]
         raw_data.columns = header
-        raw_data = raw_data.drop(columns=['\n']).astype(float)
+        raw_data = raw_data.drop(columns=['\n'])  # drops any incorrect formatting
+
+        raw_data = raw_data.loc[:, ~(raw_data == '').any()]  # if scan stopped before fully complete, removes any unfinished columns
+
+        raw_data = raw_data.astype(float)
+
     else:
         raw_data = pd.read_csv(os.path.join(base_folder, "%s_Formatted_Data.csv" % exp_name), header=[0, 1])
         raw_data = raw_data.droplevel(1, axis=1).drop(columns=['\n'])
@@ -120,7 +125,7 @@ def interpret_3d_scan(data_file, plot_separately, preformatted_data=False, save_
                 replicate_data = raw_data.iloc[i, fixed_indices]
                 heatmap_data[heatmap_ordering] = np.mean(replicate_data)  # averaging data according to number of replicates
 
-        return heatmap_data, wavelengths, exp_name, sample_names
+        return heatmap_data, wavelengths, sample_names
     else:
         multi_heatmaps = []
         for s_index, sample in enumerate(sample_names):
@@ -134,7 +139,7 @@ def interpret_3d_scan(data_file, plot_separately, preformatted_data=False, save_
                     else:
                         heatmap_ordering = (i, j)
 
-                    if s_index == len(wav_indices):  # sometimes not all wavelengths produced for every sample
+                    if s_index >= len(wav_indices):  # sometimes not all wavelengths produced for every sample
                         heatmap_data[heatmap_ordering] = 0
                     else:
                         fixed_indices = [(ind * 2) + 1 for ind in wav_indices][s_index]
