@@ -1,18 +1,26 @@
-from quote import quote
-import random
+import requests
 import chardet
 
 
-def generate_quote(words=("science", "music", "engineering")):
-    """
-    Generates a fun quote at the end of each run.
-    :param words: Keywords to use to generate quote.
-    :return: None
-    """
-    choice = random.choice(words)
-    res = quote(choice, limit=100)
-    random_number = random.randint(1, 100)
-    print(f"We want to remind you: {res[random_number]['quote']} ({res[random_number]['author']})")
+## function that gets the random quote
+def generate_quote():
+    try:
+        ## making the get request
+        response = requests.get("https://quote-garden.herokuapp.com/api/v3/quotes/random")
+        if response.status_code == 200:
+            ## extracting the core data
+            json_data = response.json()
+            data = json_data['data']
+
+            ## getting the quote from the data
+            quote = data[0]['quoteText'] 
+            author = data[0]['quoteAuthor'] 
+            print(f"We want to remind you: {quote} ({author})") 
+
+        else:
+            print("Error while getting quote")
+    except:
+        print("Something went wrong! Try Again!")
 
 
 def csv_read_and_break_filter(datafile):
