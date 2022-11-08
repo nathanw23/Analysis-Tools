@@ -19,6 +19,7 @@ setup(
         plot_nanodrop = click_command_line.nanodrop_scripts:click_absorbance_plot
         plot_videocolour = click_command_line.video_analysis_scripts:click_video_colour_analysis
         split_video = click_command_line.video_analysis_scripts:click_video_splitter
+        fluor_multiplex = click_command_line.fluorimeter_scripts:click_multiplex_fluorimeter
     '''
 )
 

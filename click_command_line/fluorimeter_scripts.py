@@ -70,3 +70,23 @@ def click_kinetics_analysis(**kwargs):
 
     generate_quote()
 
+@click.command()
+@click.option("--data_file", required=True, help='Specify location of input data file.')
+@click.option("--format_data", is_flag=True, default=None, help='Set this flag to generate and save formatted data.')
+def click_multiplex_fluorimeter(**kwargs):
+    from fluorimeter.multiplex_analysis import fluorimeter_multiplex_analysis, cli_multiplex_plot
+
+    base_folder = os.path.dirname(kwargs['data_file'])  # Sets the base folder to the directory of the inputed data file
+    exp_name = kwargs['data_file'].split(os.sep)[-1].rsplit('.', 1)[0]
+
+    df = fluorimeter_multiplex_analysis(kwargs['data_file'])
+
+    exp_name = kwargs['data_file'].split(os.sep)[-1].rsplit('.', 1)[0]
+
+    cli_multiplex_plot(df, base_folder, exp_name)
+
+    if kwargs['format_data']:
+        df.to_csv(os.path.join(base_folder, '%s_Formatted_Data.csv' % exp_name), encoding='utf-8', index=False)
+
+    generate_quote()
+

@@ -17,6 +17,7 @@ def landing_page():
         ['fluor_scan', 'Plots scan data collected from a Cary Eclipse Fluorescence Spectrophotometer'],
         ['fluor_kinetics', 'Plots kinetic scan data collected from a Cary Eclipse Fluorescence Spectrophotometer'],
         ['fluor_3dscan', 'Plots 3D scan data collected from a Cary Eclipse Fluorescence Spectrophotometer'],
+        ['fluor_multiplex', 'Plots multiplex fluorescent data from a Cary Eclipse Fluorescence Spectrophotometer'],
         ['plot_nanodrop', 'Plots specrea from a NanoDrop 2000c'],
         ['plot_videocolour', 'Plots the RGB values for a specified region of a video'],
         ['split_video', 'Split a video into individual frames'],
