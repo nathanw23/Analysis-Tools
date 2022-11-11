@@ -33,9 +33,12 @@ def interpret_plate_kinetics(data_file, labels, **kwargs):
 
     df.drop(['Time'], axis=1, inplace=True)  # Removes the unnecesary column
 
-    df2 = pd.melt(df, id_vars=['Unnamed: 0', 'Unnamed: 2'], var_name='Timepoint',
-                  value_name='Signal')  # Converts the data from wide format to long format for plotting
+    if 'Unnamed: 2' not in list(df):
+        print('Group was not added to file - adding individual group for each well.')
+        df['Unnamed: 2'] = [num for num in range(len(df))]
 
+    df2 = pd.melt(df, id_vars=['Unnamed: 0', 'Unnamed: 2'], var_name='Timepoint',
+                      value_name='Signal')  # Converts the data from wide format to long format for plotting
     df2.rename({'Unnamed: 0': 'Well', 'Unnamed: 2': 'Group'}, axis=1,
                inplace=True)  # Renames the first column to 'Group' to be more descriptive
 
