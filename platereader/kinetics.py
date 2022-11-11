@@ -6,7 +6,6 @@ import os
 
 
 def cli_lineplot(df, output_folder, exp_name, labels):
-    legend_labels = labels.split(",")
     sns.color_palette("colorblind")
     n_number = df.query('Group == "A" and Converted_Time == 0').Group.count()  # Calculates the replicate number
 
@@ -18,7 +17,7 @@ def cli_lineplot(df, output_folder, exp_name, labels):
         ax.set_title('%s Kinetics Scan (N = %s, Band = Standard Deviation)' % (exp_name, n_number),
                      wrap=True)  # Adds a title to the graph with the correct n number
     ax.set(xlabel='Time (min)', ylabel='Signal (A.U.)')  # Labels the axis
-    plt.legend(labels=legend_labels)
+    plt.legend(labels=labels)
     plt.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
     ax.set_xlim(0, df['Converted_Time'].max())
 
@@ -27,11 +26,6 @@ def cli_lineplot(df, output_folder, exp_name, labels):
 
 
 def interpret_plate_kinetics(data_file, labels=None, **kwargs):
-
-    if labels:
-        legend_labels = labels.split(",")  # Places the lables provided in a list
-    else:
-        legend_labels = None
 
     df = pd.read_csv(data_file, skiprows=6)  # Reads in the csv file and removes the extra rows
 
@@ -59,8 +53,8 @@ def interpret_plate_kinetics(data_file, labels=None, **kwargs):
     Groups.sort()  # Orders the groups in alphabetical order to replace groups with legend labels
 
     # Changes the plate reader assigned group names with the user assigned group names
-    if legend_labels:
-        df2["Group"] = df2["Group"].replace(Groups, legend_labels)
+    if labels is not None:
+        df2["Group"] = df2["Group"].replace(Groups, labels)
 
     df2 = df2.drop(columns=['Extracted_Minute', 'Extracted_Second'])
 
