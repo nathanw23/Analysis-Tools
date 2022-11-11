@@ -26,8 +26,12 @@ def cli_lineplot(df, output_folder, exp_name, labels):
                 dpi=300)  # Saves the graph with an appropiate file name
 
 
-def interpret_plate_kinetics(data_file, labels, **kwargs):
-    legend_labels = labels.split(",")  # Places the lables provided in a list
+def interpret_plate_kinetics(data_file, labels=None, **kwargs):
+
+    if labels:
+        legend_labels = labels.split(",")  # Places the lables provided in a list
+    else:
+        legend_labels = None
 
     df = pd.read_csv(data_file, skiprows=6)  # Reads in the csv file and removes the extra rows
 
@@ -55,7 +59,8 @@ def interpret_plate_kinetics(data_file, labels, **kwargs):
     Groups.sort()  # Orders the groups in alphabetical order to replace groups with legend labels
 
     # Changes the plate reader assigned group names with the user assigned group names
-    df2["Group"] = df2["Group"].replace(Groups, legend_labels)
+    if legend_labels:
+        df2["Group"] = df2["Group"].replace(Groups, legend_labels)
 
     df2 = df2.drop(columns=['Extracted_Minute', 'Extracted_Second'])
 
