@@ -7,12 +7,12 @@ import os
 def cli_plot(df, exp_name, output_folder, metadata):
     sns.lineplot(data=df, x="Wavelength (nm)", y="Intensity (A.U.)", hue="Sample")
     plt.ylim(ymin=0)
-    if metadata['Scan Type'] == 'excitation':
+    if metadata['Scan Type'] == 'Excitation':
         constant = 'emission'
     else:
         constant = 'excitation'
     title = '%s %s scan (%s %d)' % (exp_name, metadata['Scan Type'], constant, int(metadata['Wavelength']))
-        
+
     if len(title) > 55:
         title = title[0:55] + '\n' + title[55:]
 
@@ -36,14 +36,14 @@ def fluorimeter_scan_analysis(data_file, **kwargs):
 
     for cell in config_details:
         if scan_type is not None:
-            if (scan_type == 'emission' and 'Ex. Wavelength' in cell) or (scan_type == 'excitation' and 'Em. Wavelength' in cell):
+            if (scan_type == 'Emission' and 'Ex. Wavelength' in cell) or (scan_type == 'Excitation' and 'Em. Wavelength' in cell):
                 wavelength = float(cell.split(' ')[-1])
                 break
         if 'Scan mode' in cell and scan_type is None:
             if 'Emission' in cell:
-                scan_type = 'emission'
+                scan_type = 'Emission'
             elif 'Excitation' in cell:
-                scan_type = 'excitation'
+                scan_type = 'Excitation'
             else:
                 raise RuntimeError('Incorrect file provided.')
 
