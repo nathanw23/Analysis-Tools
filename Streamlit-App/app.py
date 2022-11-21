@@ -43,7 +43,7 @@ run = st.button("Run Analysis")
 
 if run:
     if selected_tool == "Fluorimeter Scan":
-        df = fluorimeter_scan_analysis(data_file)
+        df, metadata = fluorimeter_scan_analysis(data_file)
         fig = plt.figure()
         sns.lineplot(data=df, x="Wavelength (nm)", y="Intensity (A.U.)", hue="Sample")
         st.pyplot(fig)

@@ -9,12 +9,12 @@ import os
 def click_fluorimeter_scan(**kwargs):
     from fluorimeter.standard_scan_analysis import fluorimeter_scan_analysis, cli_plot
 
-    df = fluorimeter_scan_analysis(**kwargs)
+    df, metadata = fluorimeter_scan_analysis(**kwargs)
     base_output_folder = os.path.dirname(kwargs['data_file'])
 
     exp_name = kwargs['data_file'].split(os.sep)[-1].rsplit('.', 1)[0]
 
-    cli_plot(df, exp_name, base_output_folder)
+    cli_plot(df, exp_name, base_output_folder, metadata)
     if kwargs['format_data']:
         df.to_csv(os.path.join(base_output_folder, '%s_Formatted_Data.csv' % exp_name), encoding='utf-8', index=False)
 
