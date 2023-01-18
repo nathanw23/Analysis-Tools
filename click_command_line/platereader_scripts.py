@@ -55,3 +55,22 @@ def click_interpret_kinetics(**kwargs):
     cli_lineplot(df, base_output_folder, exp_name, kwargs['labels'])
 
     generate_quote()
+
+
+@click.command()
+@click.option('--data_file', required=True, help='Data file for analysis. Different conditions must be different groups in the plate layout')
+@click.option('--format_data', is_flag=True, default=None, help='Set this flag to generate and save formatted data')
+def click_EDWIN_kinetics(**kwargs):
+    from platereader.EDWIN_kinetics import EDWIN_kinetics_analysis, cli_EDIWN_kinetics_plot
+
+    base_output_folder = os.path.dirname(kwargs['data_file'])
+    exp_name = kwargs['data_file'].split(os.sep)[-1].rsplit('.', 1)[0]
+
+    df = EDWIN_kinetics_analysis(**kwargs)
+
+    if kwargs['format_data']:
+        df.to_csv(os.path.join(base_output_folder, f'{exp_name}_Formatted_Data.csv'), encoding='utf-8', index=False)
+
+    cli_EDIWN_kinetics_plot(df, base_output_folder, exp_name)
+
+    generate_quote()

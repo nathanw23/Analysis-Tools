@@ -20,6 +20,7 @@ setup(
         plot_videocolour = click_command_line.video_analysis_scripts:click_video_colour_analysis
         split_video = click_command_line.video_analysis_scripts:click_video_splitter
         fluor_multiplex = click_command_line.fluorimeter_scripts:click_multiplex_fluorimeter
+        EDWIN_kinetics = click_command_line.platereader_scripts:click_EDWIN_kinetics
     '''
 )
 
