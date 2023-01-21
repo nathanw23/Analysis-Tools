@@ -57,20 +57,16 @@ def colour_analysis(video_file):
 
     process_video(Video_FILE, Y1, Y2, X1, X2)
 
-    df = pd.DataFrame(colours, columns=['R', 'G', 'B'])
+    df = pd.DataFrame(colours, columns=['Red', 'Green', 'Blue'])
     df['Frame'] = np.arange(0, total_length)
-    df = df[["Frame", "R", "G", "B"]]
-    df.to_csv(os.path.join(base_folder, '%s_Channel_Data_(%d,%d_%d,%d).csv' % (exp_name, Y1, Y2, X1, X2)),
-              encoding='utf-8', index=False)
+    df = df[["Frame", "Red", "Green", "Blue"]]
 
-    plt.figure()
-    sns.lineplot(data=df, x='Frame', y='R', color='red')
-    sns.lineplot(data=df, x='Frame', y='G', color='green')
-    sns.lineplot(data=df, x='Frame', y='B', color='blue')
-    plt.xlim(0, )
-    plt.ylim(0, )
-    plt.ylabel("Channel Value")
-    plt.title('%s_Channel_Values_[%d:%d, %d:%d]' % (exp_name, Y1, Y2, X1, X2), wrap=True)
+    df = pd.melt(df, id_vars=['Frame'], var_name='Channel', value_name='Signal')
+
+    df.to_csv(os.path.join(base_folder, '%s_Channel_Data_(%d,%d_%d,%d).csv' % (exp_name, Y1, Y2, X1, X2)), encoding='utf-8', index=False)
+
+    grid = sns.FacetGrid(df, row='Channel', margin_titles=True)
+    grid.map(sns.lineplot, "Frame", "Signal", ci="sd", palette="colorblind")
     plt.savefig(os.path.join(base_folder, '%s_ChannelValues_(%d,%d_%d,%d).png' % (exp_name, Y1, Y2, X1, X2)))
 
     generate_quote()
