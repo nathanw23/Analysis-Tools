@@ -63,9 +63,7 @@ def click_kinetics_analysis(**kwargs):
 
     if kwargs['format_data']:
         df.to_csv(os.path.join(base_folder, '%s_Formatted_Data.csv' % exp_name), encoding='utf-8', index=False)  # Saves the updates dataframe to a csv file
-        summary = df.groupby(["Group", "Time (min)"])["Intensity (A.U.)"].describe()
-        summary.to_csv(os.path.join(base_folder, '%s_Data_Summary.csv' % exp_name), encoding='utf-8')
-
+        
     cli_kinetics_lineplot(df, exp_name, base_folder)
 
     generate_quote()
