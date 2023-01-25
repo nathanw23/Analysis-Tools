@@ -11,6 +11,14 @@ def cli_multiplex_plot(df, output_folder, exp_name):
 
 
 def cleanup_multiplex_data(data_file, labels, fluorophores, **kwargs):
+    """
+    Reads in a platereader multiplexed timeseries file and formats data for plotting.  Assumes data has an additional
+    'Group' column for averaging results.
+    :param data_file: filepath to input file.
+    :param labels: Label to apply to each averaged group (list).
+    :param fluorophores: List of fluorophores corresponding to header wavelength columns.
+    :return: Clean pandas dataframe.
+    """
     df = pd.read_csv(data_file, skiprows=5, header=[0, 1])
     df.drop(columns=df.columns[:2], axis=1, inplace=True)
 

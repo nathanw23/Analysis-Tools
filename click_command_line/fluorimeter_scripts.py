@@ -62,7 +62,7 @@ def click_kinetics_analysis(**kwargs):
     df = fluorimeter_kinetics_analysis(kwargs['data_file'])
 
     if kwargs['format_data']:
-        df.to_csv(os.path.join(base_folder, '%s_Formatted_Data.csv' % exp_name), encoding='utf-8', index=False)  # Saves the updates dataframe to a csv file
+        df.to_csv(os.path.join(base_folder, '%s_Formatted_Data.csv' % exp_name), encoding='utf-8', index=False)  # Saves the updated dataframe to a csv file
         
     cli_kinetics_lineplot(df, exp_name, base_folder)
 
