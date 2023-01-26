@@ -6,9 +6,6 @@ from shared_functions import generate_quote
 @click.command()
 @click.option("--data_file", required=True,
               help="Data file for analysis. Different conditions must be different groups in the plate layout")
-@click.option('--labels', required=True, help='Labels for the figure legend separated by commas (no spaces)')
-@click.option('--fluorophores', required=True,
-              help='The fluorophores used in the experiment in the order set separated by commas (no spaces)')
 @click.option("--format_data", is_flag=True, default=None, help='Set this flag to generate and save formatted data.')
 def click_multiplex_cleanup(**kwargs):
     from platereader.multiplexing import cleanup_multiplex_data, cli_multiplex_plot
