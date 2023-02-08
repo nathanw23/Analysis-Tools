@@ -1,26 +1,19 @@
-import requests
+import random
 import chardet
-
+from rich import print
 
 ## function that gets the random quote
 def generate_quote():
-    try:
-        ## making the get request
-        response = requests.get("https://quote-garden.herokuapp.com/api/v3/quotes/random")
-        if response.status_code == 200:
-            ## extracting the core data
-            json_data = response.json()
-            data = json_data['data']
+    quotes = {
+        '"We cannot solve problems with the kind of thinking we employed when we came up with them."' : 'Albert Einstein',
+        '"Learn as if you will live forever, live like you will die tomorrow."' : 'Mahatma Gandhi',
+        '"Power is not given to you"' : 'Beyonce',
+        '"You will face many defeats in life, but never let yourdelf be defeated"' : 'Maya Angelou',
+    }
 
-            ## getting the quote from the data
-            quote = data[0]['quoteText'] 
-            author = data[0]['quoteAuthor'] 
-            print(f"We want to remind you: {quote} ({author})") 
+    quote, author = random.choice(list(quotes.items()))
 
-        else:
-            print("Error while getting quote")
-    except:
-        print("Something went wrong! Try Again!")
+    print(f'[bold magenta]We want to remind you:[/bold magenta] {quote} ({author})')
 
 
 def csv_read_and_break_filter(datafile):
