@@ -8,7 +8,7 @@ def generate_quote():
         '"We cannot solve problems with the kind of thinking we employed when we came up with them."' : 'Albert Einstein',
         '"Learn as if you will live forever, live like you will die tomorrow."' : 'Mahatma Gandhi',
         '"Power is not given to you"' : 'Beyonce',
-        '"You will face many defeats in life, but never let yourdelf be defeated"' : 'Maya Angelou',
+        '"You will face many defeats in life, but never let yourself be defeated"' : 'Maya Angelou',
     }
 
     quote, author = random.choice(list(quotes.items()))
