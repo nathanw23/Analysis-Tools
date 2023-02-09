@@ -9,7 +9,7 @@ def landing_page():
     table = Table(title="Analysis Tools")
 
     table.add_column("Tool", style='Cyan', no_wrap=True)
-    table.add_column("Descripption", style="green")
+    table.add_column("Description", style="green")
 
     table.add_row('plate_kinetics', 'Plots kinetics data collected from the ClarioStar plate reader')
     table.add_row('plate_multiplex', 'Cleans up and plots multiplex kinetics data obtained from a ClarioStar plate reader')
