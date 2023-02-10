@@ -9,6 +9,13 @@ def generate_quote():
         '"Learn as if you will live forever, live like you will die tomorrow."' : 'Mahatma Gandhi',
         '"Power is not given to you"' : 'Beyonce',
         '"You will face many defeats in life, but never let yourself be defeated"' : 'Maya Angelou',
+        '"It is often the small steps, not the gian leaps, that bring about the most lasting change"' : 'HM Queen Elizabeth II',
+        '"We will fail when we fail to try"' : 'Rosa Parks',
+        '"A person who never made a mistake never tried anything new"' : 'Albert Einstein',
+        '"There is nothing impossible to they who will try"' : 'Alexander the Great',
+        '"Remember that the airplane takes off against the wind, not with it"' : 'Henry Ford',
+        '"Shoot for the moon. Even if you miss, you`ll land among the stars"' : 'Norman Vincent Peale',
+        '"If my mind can conceive ir, if my heart can believe it, then I can achieve it"' : 'Muhammad Ali',   
     }
 
     quote, author = random.choice(list(quotes.items()))
