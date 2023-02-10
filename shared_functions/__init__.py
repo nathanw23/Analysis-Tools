@@ -15,7 +15,7 @@ def generate_quote():
         '"There is nothing impossible to they who will try"' : 'Alexander the Great',
         '"Remember that the airplane takes off against the wind, not with it"' : 'Henry Ford',
         '"Shoot for the moon. Even if you miss, you`ll land among the stars"' : 'Norman Vincent Peale',
-        '"If my mind can conceive ir, if my heart can believe it, then I can achieve it"' : 'Muhammad Ali',   
+        '"If my mind can conceive it, if my heart can believe it, then I can achieve it"' : 'Muhammad Ali',   
     }
 
     quote, author = random.choice(list(quotes.items()))
