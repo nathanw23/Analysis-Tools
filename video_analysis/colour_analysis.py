@@ -4,7 +4,7 @@ import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-from tqdm import tqdm
+from tqdm.rich import tqdm
 from shared_functions import generate_quote
 
 

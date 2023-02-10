@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from collections import defaultdict
 import seaborn as sns
 import os
-from tqdm import tqdm
+from tqdm.rich import tqdm
 import sys
 from shared_functions import generate_quote, csv_read_and_break_filter
 

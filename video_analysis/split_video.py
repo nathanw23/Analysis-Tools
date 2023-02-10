@@ -1,6 +1,6 @@
 import os
 import cv2
-from tqdm import tqdm
+from tqdm.rich import tqdm
 from shared_functions import generate_quote
 
 
