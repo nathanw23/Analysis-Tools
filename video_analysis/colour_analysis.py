@@ -22,7 +22,7 @@ def process_video(video_filepath, Y1, Y2, X1, X2):
     colours = []
     cap = cv2.VideoCapture(video_filepath)
     grabbed, frame = cap.read()
-    pbar = tqdm(total=FramesTotal, desc="Analysing")
+    pbar = tqdm(total=FramesTotal)
     while grabbed:
         grabbed, frame = cap.read()
         if not grabbed:
