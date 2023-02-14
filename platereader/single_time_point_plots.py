@@ -13,23 +13,29 @@ def platereader_spot_bar_plot(data_file, labels, fluorophores, **kwargs):
     :return: Dataframe with formatted data.
     """
 
-    with open(data_file, 'r') as f:
+    with open(data_file, "r") as f:
         for index, line in enumerate(f.readlines()):
-            if 'Well' in line:
+            if "Well" in line:
                 header_row = index
                 break
 
     df = pd.read_csv(data_file, skiprows=header_row, header=[0])
     df.drop(columns=df.columns[-1], axis=1, inplace=True)
-    df.rename(columns={colname: fluoro_name for colname, fluoro_name in zip(df.columns[3:], fluorophores)}, inplace=True)
-    df['Sample'] = labels
+    df.rename(
+        columns={
+            colname: fluoro_name
+            for colname, fluoro_name in zip(df.columns[3:], fluorophores)
+        },
+        inplace=True,
+    )
+    df["Sample"] = labels
     df.plot(x="Sample", y=["Atto550", "Atto647N"], kind="bar", rot=90)
-    plt.ylabel('Intensity (Arbitrary Units)')
+    plt.ylabel("Intensity (Arbitrary Units)")
     plt.tight_layout()
 
     file_name = os.path.basename(data_file)
     file_folder = os.path.dirname(data_file)
 
-    plt.savefig(os.path.join(file_folder, '%s_barplot.pdf' % file_name))
+    plt.savefig(os.path.join(file_folder, "%s_barplot.pdf" % file_name))
 
     return df

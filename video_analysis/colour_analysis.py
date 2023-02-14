@@ -39,7 +39,7 @@ def process_video(video_filepath, Y1, Y2, X1, X2):
 def colour_analysis(video_file):
     base_folder = os.path.dirname(video_file)
     exp_name = video_file.split(os.sep)[-1]
-    exp_name = exp_name.rsplit('.', 1)[0]
+    exp_name = exp_name.rsplit(".", 1)[0]
     Video_FILE = video_file
 
     print("Counting Frames...")
@@ -57,16 +57,28 @@ def colour_analysis(video_file):
 
     process_video(Video_FILE, Y1, Y2, X1, X2)
 
-    df = pd.DataFrame(colours, columns=['Red', 'Green', 'Blue'])
-    df['Frame'] = np.arange(0, total_length)
+    df = pd.DataFrame(colours, columns=["Red", "Green", "Blue"])
+    df["Frame"] = np.arange(0, total_length)
     df = df[["Frame", "Red", "Green", "Blue"]]
 
-    df = pd.melt(df, id_vars=['Frame'], var_name='Channel', value_name='Signal')
+    df = pd.melt(df, id_vars=["Frame"], var_name="Channel", value_name="Signal")
 
-    df.to_csv(os.path.join(base_folder, '%s_Channel_Data_(%d,%d_%d,%d).csv' % (exp_name, Y1, Y2, X1, X2)), encoding='utf-8', index=False)
+    df.to_csv(
+        os.path.join(
+            base_folder,
+            "%s_Channel_Data_(%d,%d_%d,%d).csv" % (exp_name, Y1, Y2, X1, X2),
+        ),
+        encoding="utf-8",
+        index=False,
+    )
 
-    grid = sns.FacetGrid(df, row='Channel', margin_titles=True)
+    grid = sns.FacetGrid(df, row="Channel", margin_titles=True)
     grid.map(sns.lineplot, "Frame", "Signal", ci="sd", palette="colorblind")
-    plt.savefig(os.path.join(base_folder, '%s_ChannelValues_(%d,%d_%d,%d).png' % (exp_name, Y1, Y2, X1, X2)))
+    plt.savefig(
+        os.path.join(
+            base_folder,
+            "%s_ChannelValues_(%d,%d_%d,%d).png" % (exp_name, Y1, Y2, X1, X2),
+        )
+    )
 
     generate_quote()
