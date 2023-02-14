@@ -7,9 +7,9 @@ import os
 
 def cli_lineplot(df, output_folder, exp_name, labels):
     sns.color_palette("colorblind")
-    n_number = df.query('Group == "A" and Converted_Time == 0').Group.count()  # Calculates the replicate number
+    n_number = df.query('Group == "A" and "Tine (min)" == 0').Group.count()  # Calculates the replicate number
 
-    ax = sns.lineplot(data=df, x='Converted_Time', y='Signal', hue='Group', ci="sd",
+    ax = sns.lineplot(data=df, x='Time (min)', y='Intensity (A.U.)', hue='Group', ci="sd",
                       palette="colorblind")  # Plots a line graph of the average for each group at each time point
     if n_number == 1:
         ax.set_title('%s Kinetics Scan' % (exp_name), wrap=True)
@@ -36,7 +36,7 @@ def interpret_plate_kinetics(data_file, labels=None, **kwargs):
         df['Unnamed: 2'] = [num for num in range(len(df))]
 
     df2 = pd.melt(df, id_vars=['Unnamed: 0', 'Unnamed: 2'], var_name='Timepoint',
-                      value_name='Signal')  # Converts the data from wide format to long format for plotting
+                      value_name='Intensity (A.U.)')  # Converts the data from wide format to long format for plotting
     df2.rename({'Unnamed: 0': 'Well', 'Unnamed: 2': 'Group'}, axis=1,
                inplace=True)  # Renames the first column to 'Group' to be more descriptive
 
@@ -47,7 +47,7 @@ def interpret_plate_kinetics(data_file, labels=None, **kwargs):
     df2['Extracted_Second'] = df2['Extracted_Second'].replace(r'^\s*$', np.NaN, regex=True).astype(float)
     df2['Extracted_Second'] = df2['Extracted_Second'].fillna(0)  # Code  extracts  the second value and sets NaNs to 0
 
-    df2['Converted_Time'] = (((df2['Extracted_Minute'] * 60) + df2['Extracted_Second']) / 60).round(2)  # Converts time to a minute decimal
+    df2['Time (min)'] = (((df2['Extracted_Minute'] * 60) + df2['Extracted_Second']) / 60).round(2)  # Converts time to a minute decimal
 
     Groups = df2['Group'].unique().tolist()  # Extracts the number group labels assigned by the plate reader into a list
     Groups.sort()  # Orders the groups in alphabetical order to replace groups with legend labels

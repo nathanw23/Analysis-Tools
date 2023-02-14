@@ -6,7 +6,7 @@ import os
 
 def cli_multiplex_plot(df, output_folder, exp_name):
     grid = sns.FacetGrid(df, col='Condition', row='Fluorophore', margin_titles=True)
-    grid.map(sns.lineplot, "Converted_Time", "Signal", ci="sd", palette="colorblind")
+    grid.map(sns.lineplot, "Time (min)", "Intensity (A.U.)", ci="sd", palette="colorblind")
     grid.savefig(os.path.join(output_folder, f"{exp_name}_MultiplexFacet.pdf"), dpi=300)
 
 
@@ -24,7 +24,7 @@ def cleanup_multiplex_data(data_file, **kwargs):
 
     df.columns = df.columns.map(" ".join)  # Combines to two headers
 
-    df2 = pd.melt(df, id_vars=df.iloc[:, :1], var_name="Temp", value_name="Signal")
+    df2 = pd.melt(df, id_vars=df.iloc[:, :1], var_name="Temp", value_name="Intensity (A.U.)")
     df2.rename(columns={df2.columns[0]: "Group"}, inplace=True)
     df2[["Wavelength", "Time"]] = df2["Temp"].str.split(")", expand=True)
     df2.drop(["Temp"], axis=1, inplace=True)
@@ -33,7 +33,7 @@ def cleanup_multiplex_data(data_file, **kwargs):
     df2['Extracted_Second'] = df2['Extracted_Second'].str.split('s').str[0]
     df2['Extracted_Second'] = df2['Extracted_Second'].replace(r'^\s*$', np.NaN, regex=True).astype(float)
     df2['Extracted_Second'] = df2['Extracted_Second'].fillna(0)
-    df2['Converted_Time'] = (((df2['Extracted_Minute'] * 60) + df2['Extracted_Second']) / 60).round(2)
+    df2['Time (min)'] = (((df2['Extracted_Minute'] * 60) + df2['Extracted_Second']) / 60).round(2)
     df2.drop(["Extracted_Minute", "Extracted_Second", "Time"], axis=1, inplace=True)
     df2["Wavelength"] = df2["Wavelength"].str[11:-2]
 
