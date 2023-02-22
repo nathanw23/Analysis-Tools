@@ -20,7 +20,7 @@ def landing_page():
         "Cleans up and plots multiplex kinetics data obtained from a ClarioStar plate reader",
     )
     table.add_row(
-        "EDWIN_kinetics", "Plots kinetics data collected from the BMG plate reader"
+        "BMG_kinetics", "Plots kinetics data collected from the BMG plate reader"
     )
     table.add_row(
         "fluor_scan",
