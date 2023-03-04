@@ -1,5 +1,6 @@
 import click
 import os
+from shared_functions import generate_quote
 
 
 @click.command()
@@ -27,3 +28,5 @@ def click_absorbance_plot(**kwargs):
         df.to_csv(
             os.path.join(base_folder, f"{exp_name}.csv"), encoding="utf-8", index=False
         )  # Saves the tsv file as a csv file for future analysis
+    
+    generate_quote()
