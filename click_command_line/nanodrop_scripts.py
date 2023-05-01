@@ -26,7 +26,7 @@ def click_absorbance_plot(**kwargs):
 
     if kwargs["format_data"]:
         df.to_csv(
-            os.path.join(base_folder, f"{exp_name}.csv"), encoding="utf-8", index=False
+            os.path.join(base_folder, f"{exp_name}.csv"), encoding="utf-8"
         )  # Saves the tsv file as a csv file for future analysis
     
     generate_quote()
