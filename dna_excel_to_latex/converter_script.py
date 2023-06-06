@@ -55,3 +55,25 @@ for sheet in sheets:  # can process each sheet individually
         f.writelines(conv_text)
 
 
+
+
+# currently, I replace the tabular and headings this produces with the following (or similar):
+
+# \begin{landscape}
+#     \begin{longtable}{P{0.15\linewidth}p{0.53\linewidth}P{0.17\linewidth}P{0.1\linewidth}}
+#         \caption[XXX]{XXX}
+#         \label{table:clamp_variable}\\
+#         \toprule
+#         \textbf{Name} & \centering \textbf{Sequence} \arraybackslash & \textbf{Description} & \textbf{Length} \\
+#         \midrule
+
+#         \bottomrule
+#     \end{longtable}
+# \end{landscape}
+
+# These packages are also needed in the latex document:
+
+# \usepackage{seqsplit}
+# \usepackage{longtable}
+# \usepackage{tabularx}
+
