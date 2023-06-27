@@ -1,4 +1,4 @@
-# Analysis-Tools [![macOS](https://svgshare.com/i/ZjP.svg)](https://svgshare.com/i/ZjP.svg) [![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg) [![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg) [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://labanalysistools.streamlit.app/)
+# Analysis-Tools [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://labanalysistools.streamlit.app/)
 
 ### Description
 A suite of command line tools for plotting and analysing data obtained from a Clariostar plate reader, Cary Eclipse spectrophotometer, and Nanodrop 2000c. 
