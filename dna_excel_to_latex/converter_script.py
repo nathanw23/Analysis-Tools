@@ -1,8 +1,8 @@
 import pandas as pd
 import openpyxl
 
-base_in = '/Users/matt/Documents/PhD/thesis/table_data/origami_strands.xlsx'
-base_out = '/Users/matt/Desktop/'
+base_in = r"C:\Users\s1893121\OneDrive - University of Edinburgh\PhD\Laboratory\Experiments\ToeholdInDel_Investigation\InDel_Version3\InDelv3_Strands.xlsx"
+base_out = r"C:\Users\s1893121\Downloads"
 
 # Load Excel workbook using openpyxl (to keep track of rich text)
 workbook = openpyxl.load_workbook(base_in, rich_text=True)
@@ -52,7 +52,7 @@ for sheet in sheets:  # can process each sheet individually
 
     conv_text = df.to_latex(index=False, header=False).replace('_','\_')  # this is to prevent latex errors
     with open(base_out + sheet + '.txt', 'w') as f:
-        f.writelines(conv_text)
+        f.write(conv_text)
 
 
 

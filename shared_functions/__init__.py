@@ -16,6 +16,12 @@ def generate_quote():
         '"Remember that the airplane takes off against the wind, not with it"': "Henry Ford",
         '"Shoot for the moon. Even if you miss, you`ll land among the stars"': "Norman Vincent Peale",
         '"If my mind can conceive it, if my heart can believe it, then I can achieve it"': "Muhammad Ali",
+        '"The only way to do great work is to love what you do"': "Steve Jobs",
+        '"The best way to predict the future is to create it"': "Abraham Lincoln",
+        '"The only person you are destined to become is the person you decide to be"': "Ralph Waldo Emerson",
+        '"The best time to plant a tree was 20 years ago. The second best time is now"': "Chinese Proverb",
+        '"The best revenge is massive success"': "Frank Sinatra",
+        '"Please be patient"': "oxView",
     }
 
     quote, author = random.choice(list(quotes.items()))
