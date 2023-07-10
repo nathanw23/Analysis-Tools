@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 import os
 from tqdm.rich import tqdm
 from shared_functions import generate_quote
+import warnings
+from tqdm import TqdmExperimentalWarning
+warnings.filterwarnings("ignore", category=TqdmExperimentalWarning)
 
 
 def TotalFrames(videofile):

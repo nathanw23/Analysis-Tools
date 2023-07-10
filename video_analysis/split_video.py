@@ -2,6 +2,9 @@ import os
 import cv2
 from tqdm.rich import tqdm
 from shared_functions import generate_quote
+import warnings
+from tqdm import TqdmExperimentalWarning
+warnings.filterwarnings("ignore", category=TqdmExperimentalWarning)
 
 
 def video_splitter(video_file):
