@@ -22,6 +22,7 @@ def generate_quote():
         '"The best time to plant a tree was 20 years ago. The second best time is now"': "Chinese Proverb",
         '"The best revenge is massive success"': "Frank Sinatra",
         '"Please be patient"': "oxView",
+        '"Devise your own paths"': "Vera Rubin",
     }
 
     quote, author = random.choice(list(quotes.items()))
