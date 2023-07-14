@@ -9,7 +9,7 @@ def generate_quote():
         '"Learn as if you will live forever, live like you will die tomorrow."': "Mahatma Gandhi",
         '"Power is not given to you"': "Beyonce",
         '"You will face many defeats in life, but never let yourself be defeated"': "Maya Angelou",
-        '"It is often the small steps, not the gian leaps, that bring about the most lasting change"': "HM Queen Elizabeth II",
+        '"It is often the small steps, not the giant leaps, that bring about the most lasting change"': "HM Queen Elizabeth II",
         '"We will fail when we fail to try"': "Rosa Parks",
         '"A person who never made a mistake never tried anything new"': "Albert Einstein",
         '"There is nothing impossible to they who will try"': "Alexander the Great",
