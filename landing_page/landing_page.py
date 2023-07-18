@@ -1,4 +1,4 @@
-import click
+import rich_click as click
 from rich.console import Console
 from rich import print
 from rich.table import Table
