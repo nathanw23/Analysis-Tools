@@ -48,21 +48,19 @@ def click_fluorimeter_scan(**kwargs):
     is_flag=True,
     help="Set this flag to plot all samples separately",
 )
-
 def click_3d_scan(**kwargs):
     from fluorimeter.scan_analysis_3D import interpret_3d_scan, cli_plot_heatmap
 
     base_output_folder = os.path.dirname(kwargs["data_file"])
     exp_name = kwargs["data_file"].split(os.sep)[-1].rsplit(".", 1)[0]
 
-    fdata = interpret_3d_scan(
-        **kwargs, save_formatted_data=True
-    )
+    print('formatting data....')
+    fdata = interpret_3d_scan(kwargs["data_file"], save_formatted_data=True)
 
+    print('plotting data....')
     cli_plot_heatmap(fdata, kwargs["c_axis"], base_output_folder, kwargs["plot_separately"])
 
     print("Done!")
-
     generate_quote()
 
 
