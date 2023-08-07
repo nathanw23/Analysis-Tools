@@ -34,7 +34,7 @@ def cli_plot_heatmap(
             ax = sns.heatmap(all_dicts[x], cmap='viridis', vmin=0, vmax=c_axis)
             ax.invert_yaxis()
             plt.savefig(
-                os.path.join(base_folder, f"{x}_3DScan.png"), dpi=300
+                os.path.join(base_folder, f"{x}_3DScan.png"), dpi=300, bbox_inches="tight"
             )
             plt.figure()
     else:
@@ -48,7 +48,7 @@ def cli_plot_heatmap(
         ax = sns.heatmap(average_data, cmap='viridis', vmin=0, vmax=c_axis)
         ax.invert_yaxis()
         plt.savefig(
-            os.path.join(base_folder, "Average_3DScan.png"), dpi=300
+            os.path.join(base_folder, "Average_3DScan.png"), dpi=300, bbox_inches="tight"
         )
 
 
