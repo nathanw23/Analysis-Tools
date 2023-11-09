@@ -1,4 +1,4 @@
-import rich_click as click
+import click
 import os
 from shared_functions import generate_quote
 

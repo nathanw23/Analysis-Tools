@@ -1,4 +1,4 @@
-import rich_click as click
+import click
 
 
 @click.command()
